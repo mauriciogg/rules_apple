@@ -39,7 +39,7 @@ bazel_dep(
 )
 
 non_module_deps = use_extension("//apple:extensions.bzl", "non_module_deps")
-use_repo(non_module_deps, "xctestrunner")
+use_repo(non_module_deps, "xctestrunner", "zip_foundation")
 
 provisioning_profile_repository = use_extension("//apple:apple.bzl", "provisioning_profile_repository_extension")
 use_repo(provisioning_profile_repository, "local_provisioning_profiles")
