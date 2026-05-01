@@ -16,6 +16,17 @@
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+_ZIP_FOUNDATION_BUILD = """\
+load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
+
+swift_library(
+    name = "ZIPFoundation",
+    srcs = glob(["Sources/ZIPFoundation/**/*.swift"]),
+    module_name = "ZIPFoundation",
+    visibility = ["//visibility:public"],
+)
+"""
+
 def apple_rules_dependencies():
     """Fetches repositories that are dependencies of the `rules_apple` workspace.
     """
@@ -27,4 +38,14 @@ def apple_rules_dependencies():
         ],
         strip_prefix = "xctestrunner-d2ed8cea1af0e33e12acbb69b748877433813a3d",
         sha256 = "6ff20c63f74e8ecdfbae95b894582eece3a6119329236110581cb85e1a5be2b2",
+    )
+
+    http_archive(
+        name = "zip_foundation",
+        urls = [
+            "https://github.com/weichsel/ZIPFoundation/archive/refs/tags/0.9.20.tar.gz",
+        ],
+        strip_prefix = "ZIPFoundation-0.9.20",
+        sha256 = "3ddad93f81480d141f15d9b8bdc276a21c5242446c179672c2e787799a423b5e",
+        build_file_content = _ZIP_FOUNDATION_BUILD,
     )
