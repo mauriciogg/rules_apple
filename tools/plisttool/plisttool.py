@@ -801,14 +801,12 @@ class PlistIO(object):
       binary: If True and path_or_file was a file name, reformat the file
           in binary form.
     """
+    fmt = plistlib.FMT_BINARY if binary else plistlib.FMT_XML
     if isinstance(path_or_file, str):
       with open(path_or_file, 'wb') as fp:
-        plistlib.dump(plist, fp)
+        plistlib.dump(plist, fp, fmt=fmt)
     else:
-      plistlib.dump(plist, path_or_file)
-
-    if binary and isinstance(path_or_file, str):
-      subprocess.check_call(['plutil', '-convert', 'binary1', path_or_file])
+      plistlib.dump(plist, path_or_file, fmt=fmt)
 
 
 class PlistToolTask(object):
